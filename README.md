@@ -1,7 +1,7 @@
 # Irreducibility Criteria Checker
 This repository contains Python scripts that can be used to check various Polynomial irreducibility criteria. Main purpose is to find, understand and possibly automate as many criteria as possible.
 
-#Currently supported Criteria:
+# Currently supported Criteria:
 
 Eisenstein irreducibility criterion
 
