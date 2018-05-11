@@ -52,3 +52,16 @@ def check_dumas(f, force_prime=None):
     if satisfies:
         return satisfies
     return None
+
+
+if __name__ == '__main__':
+    import sys
+    from irreducibility_common import create_polynomial
+
+    input = sys.argv[1]
+    poly = create_polynomial(input)
+    plist = check_dumas(poly)
+    if plist is not None:
+        print('Polynomial %s is irreducible by Dumas by p=%s' % (input, str(plist)))
+    else:
+        print('Polynomial %s is NOT irreducible by Dumas' % input)

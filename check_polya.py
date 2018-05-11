@@ -17,3 +17,16 @@ def check_polya(f):
     if len(suitable) >= n:
         return suitable
     return None
+
+
+if __name__ == '__main__':
+    import sys
+    from irreducibility_common import create_polynomial
+
+    input = sys.argv[1]
+    poly = create_polynomial(input)
+    siutable = check_polya(poly)
+    if siutable:
+        print('Polynomial %s is irreducible by Polya for a\'s in %s' % (input, str(siutable)))
+    else:
+        print('Polynomial %s is NOT irreducible by Polya' % input)

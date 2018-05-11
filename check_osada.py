@@ -18,3 +18,16 @@ def check_osada(f):
             s += abs(coeff)
 
     return const_coeff > 1 + s, const_coeff
+
+
+if __name__ == '__main__':
+    import sys
+    from irreducibility_common import create_polynomial
+
+    input = sys.argv[1]
+    poly = create_polynomial(input)
+    b, p = check_osada(poly)
+    if b:
+        print('Polynomial %s is irreducible by Osada [p=%i]' % (input, p))
+    else:
+        print('Polynomial %s is NOT irreducible by Osada' % input)

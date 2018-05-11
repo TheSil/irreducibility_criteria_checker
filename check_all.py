@@ -1,6 +1,4 @@
 import sympy
-import sys
-from irreducibility_common import create_polynomial
 from irreducibility_common import VAR_X
 from irreducibility_common import sub_name
 from check_eisenstein import check_eisenstein
@@ -24,11 +22,12 @@ from check_galois_fields import check_galois_fields
 
 
 if __name__ == '__main__':
+    import sys
+    from irreducibility_common import create_polynomial
+
     input = sys.argv[1]
 
     poly = create_polynomial(input)
-
-    print('f(x)=%s' % str(poly))
     polys = list()
 
     # generate list of polynomials (including substitutions) to check on

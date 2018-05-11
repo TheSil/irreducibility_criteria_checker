@@ -26,3 +26,16 @@ def check_eisenstein(f):
             if ok:
                 return p
     return None
+
+
+if __name__ == '__main__':
+    import sys
+    from irreducibility_common import create_polynomial
+
+    input = sys.argv[1]
+    poly = create_polynomial(input)
+    p = check_eisenstein(poly)
+    if p is not None:
+        print('Polynomial %s is irreducible by Eisenstein with p=%i' % (input, p))
+    else:
+        print('Polynomial %s is NOT irreducible by Eisenstein' % input)

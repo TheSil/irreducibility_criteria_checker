@@ -69,3 +69,16 @@ def check_bonciocat(f):
 
     # we have succeeded!
     return True, Sps
+
+
+if __name__ == '__main__':
+    import sys
+    from irreducibility_common import create_polynomial
+
+    input = sys.argv[1]
+    poly = create_polynomial(input)
+    p = check_bonciocat(poly)
+    if p is not None:
+        print('Polynomial %s is irreducible by Bonciocat with p=%i' % (input, p))
+    else:
+        print('Polynomial %s is NOT irreducible by Bonciocat' % input)

@@ -20,3 +20,16 @@ def check_schur(f):
         return False
 
     return True
+
+
+if __name__ == '__main__':
+    import sys
+    from irreducibility_common import create_polynomial
+
+    input = sys.argv[1]
+    poly = create_polynomial(input)
+    b = check_schur(poly)
+    if b:
+        print('Polynomial %s is irreducible by Schur.' % input)
+    else:
+        print('Polynomial %s is NOT irreducible by Schur.' % input)

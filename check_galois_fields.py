@@ -34,3 +34,16 @@ def check_galois_fields(f, min_p=2, max_p=30):
 
     # TODO check if the degrees are compatible, because if not, it also means the polynomial is irreducible
     return False, None
+
+
+if __name__ == '__main__':
+    import sys
+    from irreducibility_common import create_polynomial
+
+    input = sys.argv[1]
+    poly = create_polynomial(input)
+    b, p = check_galois_fields(poly)
+    if b:
+        print('Polynomial %s is irreducible over Galois fields fo p=%s' % (input, str(p)))
+    else:
+        print('Polynomial %s is NOT irreducible over Galois fields' % input)
