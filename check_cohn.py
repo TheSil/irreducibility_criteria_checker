@@ -1,10 +1,8 @@
 import sympy
 import sys
 
-from irreducibility_common import create_polynomial, poly_non_zero_exps, check_common
-from irreducibility_common import VAR_X
-from irreducibility_common import CheckResult
-from irreducibility_common import IRREDUCIBLE, REDUCIBLE, UNKNOWN
+from irreduc_utils import create_polynomial, poly_non_zero_exps, check_common
+from irreduc_types import VAR_X, CheckResult, IRREDUCIBLE, REDUCIBLE, UNKNOWN
 
 
 class CohnCriterion:

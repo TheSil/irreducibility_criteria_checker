@@ -1,16 +1,7 @@
 import sympy
 import enum
 
-VAR_X = sympy.Symbol('x')
-
-IRREDUCIBLE=0
-REDUCIBLE=1
-UNKNOWN=2
-
-class CheckResult():
-    def __init__(self, result, context=None):
-        self.result = result
-        self.context = context
+from irreduc_types import VAR_X, IRREDUCIBLE
 
 def check_common(f, fname, criterion):
     res = criterion.check(f)

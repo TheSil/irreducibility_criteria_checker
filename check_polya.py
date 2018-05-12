@@ -1,9 +1,8 @@
 import sympy
 import sys
 
-from irreducibility_common import create_polynomial, check_common
-from irreducibility_common import CheckResult
-from irreducibility_common import IRREDUCIBLE, REDUCIBLE, UNKNOWN
+from irreduc_utils import create_polynomial, check_common
+from irreduc_types import CheckResult, IRREDUCIBLE, REDUCIBLE, UNKNOWN
 
 
 class PolyaCriterion:

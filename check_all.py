@@ -1,6 +1,6 @@
 import sympy
-from irreducibility_common import VAR_X
-from irreducibility_common import sub_name
+from irreduc_types import VAR_X
+from irreduc_utils import sub_name
 from check_eisenstein import EisensteinCriterion
 from check_murty import MurtyCriterion
 from check_cohn import CohnCriterion
@@ -13,7 +13,7 @@ from check_polya import PolyaCriterion
 from check_schur import SchurCriterion
 from check_bonciocat import BonciocatCriterion
 from check_galois_fields import GaloisFieldsCriterion
-from irreducibility_common import check_common
+from irreduc_utils import check_common
 
 # TODO: find On the irreducibility of polynomials taking small values by Tverberg H., 1973, should have nice criteria
 
@@ -23,7 +23,7 @@ from irreducibility_common import check_common
 
 if __name__ == '__main__':
     import sys
-    from irreducibility_common import create_polynomial
+    from irreduc_utils import create_polynomial
 
     input = sys.argv[1]
 
