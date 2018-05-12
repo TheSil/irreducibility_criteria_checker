@@ -22,6 +22,7 @@ Eisenstein irreducibility criterion
 ## Schur's irreducibility criterion
 
 ## Brauer's irreducibility criterion
+Let $a_1 \geq a_2 \geq \dots \geq a_n$ be positive integers and $n \geq 2$. Then the polynomial $p(x)=x^n-a_1x^{n-1}-a_2x^{n-2}-\dots-a_n$ is irreducible over $\mathbb{Z}$.
 
 ## Bonciocat's irreducibility criterion
 
