@@ -1,9 +1,8 @@
 import sys
-from irreducibility_common import create_polynomial
-from irreducibility_common import get_coeff
+
+from irreducibility_common import create_polynomial, check_common, get_coeff
 from irreducibility_common import CheckResult
-from irreducibility_common import ResultEnum
-from irreducibility_common import check_common
+from irreducibility_common import IRREDUCIBLE, REDUCIBLE, UNKNOWN
 
 
 class SchurCriterion:
@@ -19,19 +18,19 @@ class SchurCriterion:
         n = f.degree()
         lead_coeff = f.LC()
         if abs(lead_coeff) != 1:
-            return CheckResult(ResultEnum.UNKNOWN)
+            return CheckResult(UNKNOWN)
         fact = n
         for exp in reversed(range(1, n)):
             coeff = get_coeff(f, exp)
             if coeff % fact != 0:
-                return CheckResult(ResultEnum.UNKNOWN)
+                return CheckResult(UNKNOWN)
             fact *= exp
         # fact now contains n!
         const_coeff = f.TC()
         if const_coeff != fact:
-            return CheckResult(ResultEnum.UNKNOWN)
+            return CheckResult(UNKNOWN)
 
-        return CheckResult(ResultEnum.IRREDUCIBLE)
+        return CheckResult(IRREDUCIBLE)
 
 
 if __name__ == '__main__':

@@ -1,10 +1,23 @@
 import sympy
 import sys
-from irreducibility_common import create_polynomial
-from irreducibility_common import CheckResult
-from irreducibility_common import ResultEnum
-from irreducibility_common import check_common
+from itertools import chain, combinations
 
+from irreducibility_common import create_polynomial, poly_non_zero_exps, check_common
+from irreducibility_common import CheckResult
+from irreducibility_common import IRREDUCIBLE, REDUCIBLE, UNKNOWN
+
+
+def powerset(iterable):
+    s = list(iterable)
+    return chain.from_iterable(combinations(s, r) for r in range(len(s)+1))
+
+def subsets_sums(s):
+    sums = set()
+    for subset in powerset(s):
+        d = sum(subset)
+        if d > 0:
+            sums.add(d)
+    return sums
 
 class GaloisFieldsCriterion:
     def __init__(self):
@@ -42,10 +55,28 @@ class GaloisFieldsCriterion:
                 pass
 
         if irreduc_primes:
-            return CheckResult(ResultEnum.IRREDUCIBLE, {"p": irreduc_primes})
+            return CheckResult(IRREDUCIBLE, {"p": irreduc_primes})
 
-        # TODO check if the degrees are compatible, because if not, it also means the polynomial is irreducible
-        return CheckResult(ResultEnum.UNKNOWN)
+        # check if the degrees are compatible, first for degrees in Fp[x], we calculate by summing
+        # all possible degrees of irreducible factors in Z[x]
+        sums = {}
+        trivial = set(range(1, f.degree()+1))
+        for p in irreduc_factors_degrees:
+            sums_p = subsets_sums(irreduc_factors_degrees[p])
+            if sums_p != trivial:
+                sums[p] = sums_p
+
+        # then if intersection of these is empty or {deg(f)}, then lesser degree factor is impossible
+        # thus polynomial will have to be irreducible
+        inter = set.intersection(*list(sums.values()))
+        if f.degree() in inter:
+            inter.remove(f.degree())
+
+        if not inter:
+            # intersection is empty, imcompatible factors!
+            return CheckResult(IRREDUCIBLE, {'degrees': sums})
+
+        return CheckResult(UNKNOWN)
 
 
 if __name__ == '__main__':

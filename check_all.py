@@ -62,5 +62,7 @@ if __name__ == '__main__':
     for criterion in criteria:
         for poly in polys:
             check_common(poly[0], sub_name(poly[1], poly[2], poly[3]), criterion)
+            if isinstance(criterion, GaloisFieldsCriterion):  # dirty hack
+                break
         print('')
 

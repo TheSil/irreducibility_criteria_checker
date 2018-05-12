@@ -1,15 +1,14 @@
 import sympy
 import sys
-from irreducibility_common import create_polynomial
-from irreducibility_common import poly_non_zero_exps
+
+from irreducibility_common import create_polynomial, poly_non_zero_exps, check_common
 from irreducibility_common import CheckResult
-from irreducibility_common import ResultEnum
-from irreducibility_common import check_common
+from irreducibility_common import IRREDUCIBLE, REDUCIBLE, UNKNOWN
 
 
 class OsadaCriterion:
     def __init__(self):
-        self.name = "Galois Fields irreducibility"
+        self.name = "Osada's irreducibility criterion"
 
     def name(self):
         return self.name
@@ -18,11 +17,11 @@ class OsadaCriterion:
         # Polynomials - Prasolov - Theorem 2.2.7 ([Os1]) part a)
         lead_coeff = f.LC()
         if lead_coeff != 1:
-            return CheckResult(ResultEnum.UNKNOWN)
+            return CheckResult(UNKNOWN)
 
         const_coeff = abs(f.TC())
         if not sympy.isprime(const_coeff):
-            return CheckResult(ResultEnum.UNKNOWN)
+            return CheckResult(UNKNOWN)
 
         s = 0
         for exp, coeff in poly_non_zero_exps(f):
@@ -30,8 +29,8 @@ class OsadaCriterion:
                 s += abs(coeff)
 
         if const_coeff > 1 + s:
-            return CheckResult(ResultEnum.IRREDUCIBLE, {'s': const_coeff})
-        return CheckResult(ResultEnum.UNKNOWN)
+            return CheckResult(IRREDUCIBLE, {'s': const_coeff})
+        return CheckResult(UNKNOWN)
 
 
 if __name__ == '__main__':

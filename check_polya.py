@@ -1,9 +1,9 @@
 import sympy
 import sys
-from irreducibility_common import create_polynomial
+
+from irreducibility_common import create_polynomial, check_common
 from irreducibility_common import CheckResult
-from irreducibility_common import ResultEnum
-from irreducibility_common import check_common
+from irreducibility_common import IRREDUCIBLE, REDUCIBLE, UNKNOWN
 
 
 class PolyaCriterion:
@@ -23,12 +23,12 @@ class PolyaCriterion:
             val = abs(f.eval(a))
             if val == 0:
                 # clearly this is reducible...
-                return CheckResult(ResultEnum.UNKNOWN)
+                return CheckResult(UNKNOWN)
             if val < rhs:
                 suitable.append(a)
         if len(suitable) >= n:
-            return CheckResult(ResultEnum.IRREDUCIBLE, {'a': suitable})
-        return CheckResult(ResultEnum.UNKNOWN)
+            return CheckResult(IRREDUCIBLE, {'a': suitable})
+        return CheckResult(UNKNOWN)
 
 
 if __name__ == '__main__':

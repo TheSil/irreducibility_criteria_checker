@@ -1,11 +1,10 @@
 import sympy
 import math
 import sys
-from irreducibility_common import create_polynomial
-from irreducibility_common import poly_non_zero_exps
+
+from irreducibility_common import create_polynomial, poly_non_zero_exps, check_common
 from irreducibility_common import CheckResult
-from irreducibility_common import ResultEnum
-from irreducibility_common import check_common
+from irreducibility_common import IRREDUCIBLE, REDUCIBLE, UNKNOWN
 
 
 class MurtyCriterion:
@@ -27,8 +26,8 @@ class MurtyCriterion:
         for n in range(nmin, nmin + 5):
             val = f.eval(n)
             if sympy.isprime(val):
-                return CheckResult(ResultEnum.IRREDUCIBLE, {'n': n, 'p': val})
-        return CheckResult(ResultEnum.UNKNOWN)
+                return CheckResult(IRREDUCIBLE, {'n': n, 'p': val})
+        return CheckResult(UNKNOWN)
 
 
 if __name__ == '__main__':

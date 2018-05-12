@@ -1,10 +1,9 @@
 import sympy
 import sys
-from irreducibility_common import create_polynomial
-from irreducibility_common import poly_non_zero_exps
+
+from irreducibility_common import create_polynomial, poly_non_zero_exps, check_common
 from irreducibility_common import CheckResult
-from irreducibility_common import ResultEnum
-from irreducibility_common import check_common
+from irreducibility_common import IRREDUCIBLE, REDUCIBLE, UNKNOWN
 
 
 class DumasCriterion:
@@ -18,11 +17,11 @@ class DumasCriterion:
         # try for prime divisors of constant term (might add leading term later too)
         const_coeff = abs(f.TC())
         if const_coeff == 0:
-            return CheckResult(ResultEnum.REDUCIBLE)
+            return CheckResult(REDUCIBLE)
 
         if force_prime is not None:
             if const_coeff % force_prime != 0:
-                return CheckResult(ResultEnum.UNKNOWN)
+                return CheckResult(UNKNOWN)
             primes = [force_prime]
         else:
             primes = sympy.ntheory.factorint(const_coeff)
@@ -62,8 +61,8 @@ class DumasCriterion:
 
             satisfies.append(p)
         if satisfies:
-            return CheckResult(ResultEnum.IRREDUCIBLE, {"p": satisfies})
-        return CheckResult(ResultEnum.UNKNOWN)
+            return CheckResult(IRREDUCIBLE, {"p": satisfies})
+        return CheckResult(UNKNOWN)
 
 
 if __name__ == '__main__':

@@ -1,9 +1,8 @@
 import sys
-from irreducibility_common import create_polynomial
-from irreducibility_common import poly_all_exps
+
+from irreducibility_common import create_polynomial, poly_all_exps, check_common
 from irreducibility_common import CheckResult
-from irreducibility_common import ResultEnum
-from irreducibility_common import check_common
+from irreducibility_common import IRREDUCIBLE, REDUCIBLE, UNKNOWN
 
 
 class BrauerCriterion:
@@ -18,14 +17,14 @@ class BrauerCriterion:
         last = 0
         lead_coeff = f.LC()
         if lead_coeff != 1:
-            return CheckResult(ResultEnum.UNKNOWN)
+            return CheckResult(UNKNOWN)
         for exp, coeff in poly_all_exps(f):
             if exp != f.degree():
                 coeff = -coeff
                 if coeff < last or coeff <= 0:
-                    return CheckResult(ResultEnum.UNKNOWN)
+                    return CheckResult(UNKNOWN)
                 last = coeff
-        return CheckResult(ResultEnum.IRREDUCIBLE)
+        return CheckResult(IRREDUCIBLE)
 
 
 if __name__ == '__main__':

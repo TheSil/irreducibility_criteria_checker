@@ -1,10 +1,9 @@
 import sympy
 import sys
-from irreducibility_common import create_polynomial
-from irreducibility_common import get_all_polygons
+
+from irreducibility_common import create_polynomial, get_all_polygons, check_common
 from irreducibility_common import CheckResult
-from irreducibility_common import ResultEnum
-from irreducibility_common import check_common
+from irreducibility_common import IRREDUCIBLE, REDUCIBLE, UNKNOWN
 
 
 class BonciocatCriterion:
@@ -22,7 +21,7 @@ class BonciocatCriterion:
         # we need k>=2 of primes, but k==1 is okay as well
         k = len(polygons)
         if k < 1:
-            return CheckResult(ResultEnum.UNKNOWN)
+            return CheckResult(UNKNOWN)
 
         Sps = {}
 
@@ -71,16 +70,16 @@ class BonciocatCriterion:
                 Sps['S%i' % prime] = S
 
         if not Sps:
-            return CheckResult(ResultEnum.UNKNOWN)
+            return CheckResult(UNKNOWN)
 
         # final part, intersection...
         inter = set.intersection(*list(Sps.values()))
 
         if len(inter) > 0:
-            return CheckResult(ResultEnum.UNKNOWN)
+            return CheckResult(UNKNOWN)
 
         # we have succeeded!
-        return CheckResult(ResultEnum.IRREDUCIBLE, Sps)
+        return CheckResult(IRREDUCIBLE, Sps)
 
 
 if __name__ == '__main__':
