@@ -1,33 +1,39 @@
 import sympy
+import sys
+from irreducibility_common import create_polynomial
 from irreducibility_common import poly_non_zero_exps
+from irreducibility_common import CheckResult
+from irreducibility_common import ResultEnum
+from irreducibility_common import check_common
 
 
-def check_osada(f):
-    # Polynomials - Prasolov - Theorem 2.2.7 ([Os1]) part a)
-    lead_coeff = f.LC()
-    if lead_coeff != 1:
-        return False, None
+class OsadaCriterion:
+    def __init__(self):
+        self.name = "Galois Fields irreducibility"
 
-    const_coeff = abs(f.TC())
-    if not sympy.isprime(const_coeff):
-        return False, None
+    def name(self):
+        return self.name
 
-    s = 0
-    for exp, coeff in poly_non_zero_exps(f):
-        if exp != f.degree() and exp != 0:
-            s += abs(coeff)
+    def check(self, f):
+        # Polynomials - Prasolov - Theorem 2.2.7 ([Os1]) part a)
+        lead_coeff = f.LC()
+        if lead_coeff != 1:
+            return CheckResult(ResultEnum.UNKNOWN)
 
-    return const_coeff > 1 + s, const_coeff
+        const_coeff = abs(f.TC())
+        if not sympy.isprime(const_coeff):
+            return CheckResult(ResultEnum.UNKNOWN)
+
+        s = 0
+        for exp, coeff in poly_non_zero_exps(f):
+            if exp != f.degree() and exp != 0:
+                s += abs(coeff)
+
+        if const_coeff > 1 + s:
+            return CheckResult(ResultEnum.IRREDUCIBLE, {'s': const_coeff})
+        return CheckResult(ResultEnum.UNKNOWN)
 
 
 if __name__ == '__main__':
-    import sys
-    from irreducibility_common import create_polynomial
-
-    input = sys.argv[1]
-    poly = create_polynomial(input)
-    b, p = check_osada(poly)
-    if b:
-        print('Polynomial %s is irreducible by Osada [p=%i]' % (input, p))
-    else:
-        print('Polynomial %s is NOT irreducible by Osada' % input)
+    poly = create_polynomial(sys.argv[1])
+    check_common(poly, sys.argv[1], OsadaCriterion())

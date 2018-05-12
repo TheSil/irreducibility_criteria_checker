@@ -1,84 +1,88 @@
 import sympy
+import sys
+from irreducibility_common import create_polynomial
 from irreducibility_common import get_all_polygons
+from irreducibility_common import CheckResult
+from irreducibility_common import ResultEnum
+from irreducibility_common import check_common
 
 
-def check_bonciocat(f):
-    # https://arxiv.org/pdf/1304.0874.pdf advanced use of newton polygons
-    # Theorem A'
-    polygons = get_all_polygons(f)
+class BonciocatCriterion:
+    def __init__(self):
+        self.name = "Bonciocat's irreducibility criterion"
 
-    # we need k>=2 of primes, but k==1 is okay as well
-    k = len(polygons)
-    if k < 1:
-        return False, None
+    def name(self):
+        return self.name
 
-    Sps = {}
+    def check(self, f):
+        # https://arxiv.org/pdf/1304.0874.pdf advanced use of newton polygons
+        # Theorem A'
+        polygons = get_all_polygons(f)
 
-    # dummy set used for comparsion later
-    i = 1
-    trivial = set()
-    while 2 * i <= f.degree():
-        trivial.add(i)
-        i += 1
+        # we need k>=2 of primes, but k==1 is okay as well
+        k = len(polygons)
+        if k < 1:
+            return CheckResult(ResultEnum.UNKNOWN)
 
-    for prime in polygons:
-        # compute mi_s, xi_s
-        ms = []
-        xs = []
-        r = len(polygons[prime])
-        for point_ind in range(r - 1):
-            point = polygons[prime][point_ind]
-            point_next = polygons[prime][point_ind + 1]
-            j = point[0]
-            vp = point[1]
-            j_next = point_next[0]
-            vp_next = point_next[1]
-            m = sympy.gcd(vp - vp_next, j_next - j)
-            ms.append(m)
+        Sps = {}
 
-            x = (j_next - j) // m
-            xs.append(x)
+        # dummy set used for comparsion later
+        i = 1
+        trivial = set()
+        while 2 * i <= f.degree():
+            trivial.add(i)
+            i += 1
 
-        # generate all linear combinations...
-        S = set()
-        S.add(0)
-        for l in range(1, r):
-            tmp = set()
-            for n in range(0, m + 1):
-                for s in S:
-                    new = s + n * xs[l - 1]
-                    if new > 0 and (2 * new <= f.degree()):
-                        tmp.add(new)
+        for prime in polygons:
+            # compute mi_s, xi_s
+            ms = []
+            xs = []
+            r = len(polygons[prime])
+            for point_ind in range(r - 1):
+                point = polygons[prime][point_ind]
+                point_next = polygons[prime][point_ind + 1]
+                j = point[0]
+                vp = point[1]
+                j_next = point_next[0]
+                vp_next = point_next[1]
+                m = sympy.gcd(vp - vp_next, j_next - j)
+                ms.append(m)
 
-            S = S.union(tmp)
+                x = (j_next - j) // m
+                xs.append(x)
 
-        S.remove(0)
+            # generate all linear combinations...
+            S = set()
+            S.add(0)
+            for l in range(1, r):
+                tmp = set()
+                for n in range(0, m + 1):
+                    for s in S:
+                        new = s + n * xs[l - 1]
+                        if new > 0 and (2 * new <= f.degree()):
+                            tmp.add(new)
 
-        # we are interested only in those sets that are not just full set of {1,2,...,n/2}
-        if S != trivial:
-            Sps[prime] = S
+                S = S.union(tmp)
 
-    if not Sps:
-        return False, None
+            S.remove(0)
 
-    # final part, intersection...
-    inter = set.intersection(*list(Sps.values()))
+            # we are interested only in those sets that are not just full set of {1,2,...,n/2}
+            if S != trivial:
+                Sps['S%i' % prime] = S
 
-    if len(inter) > 0:
-        return False, None
+        if not Sps:
+            return CheckResult(ResultEnum.UNKNOWN)
 
-    # we have succeeded!
-    return True, Sps
+        # final part, intersection...
+        inter = set.intersection(*list(Sps.values()))
+
+        if len(inter) > 0:
+            return CheckResult(ResultEnum.UNKNOWN)
+
+        # we have succeeded!
+        return CheckResult(ResultEnum.IRREDUCIBLE, Sps)
 
 
 if __name__ == '__main__':
-    import sys
-    from irreducibility_common import create_polynomial
-
-    input = sys.argv[1]
-    poly = create_polynomial(input)
-    p = check_bonciocat(poly)
-    if p is not None:
-        print('Polynomial %s is irreducible by Bonciocat with p=%i' % (input, p))
-    else:
-        print('Polynomial %s is NOT irreducible by Bonciocat' % input)
+    poly = create_polynomial(sys.argv[1])
+    check_common(poly, sys.argv[1], BonciocatCriterion())

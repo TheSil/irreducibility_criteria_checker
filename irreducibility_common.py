@@ -1,6 +1,25 @@
 import sympy
+import enum
 
 VAR_X = sympy.Symbol('x')
+
+class ResultEnum(enum.Enum):
+    IRREDUCIBLE=0,
+    REDUCIBLE=1,
+    UNKNOWN=2
+
+class CheckResult():
+    def __init__(self, result, context=None):
+        self.result = result
+        self.context = context
+
+def check_common(f, fname, criterion):
+    res = criterion.check(f)
+    if res.result == ResultEnum.IRREDUCIBLE:
+        print('Polynomial %s is irreducible by %s. (%s)'
+              % (fname, criterion.name, res.context))
+        return True
+    return False
 
 
 def convex_hull(points):
