@@ -54,6 +54,7 @@ class BonciocatCriterion:
             S.add(0)
             for l in range(1, r):
                 tmp = set()
+                m = ms[l - 1]
                 for n in range(0, m + 1):
                     for s in S:
                         new = s + n * xs[l - 1]
