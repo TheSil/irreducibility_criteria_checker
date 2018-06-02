@@ -22,7 +22,7 @@ class PolyaCriterion:
             val = abs(f.eval(a))
             if val == 0:
                 # clearly this is reducible...
-                return CheckResult(UNKNOWN)
+                return CheckResult(REDUCIBLE)
             if val < rhs:
                 suitable.append(a)
         if len(suitable) >= n:

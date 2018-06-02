@@ -3,7 +3,7 @@ This repository contains Python scripts that can be used to check various Polyno
 
 # Currently supported Criteria:
 
-Eisenstein irreducibility criterion
+## Eisenstein irreducibility criterion
 
 ## Cohn irreducibility criterion
 

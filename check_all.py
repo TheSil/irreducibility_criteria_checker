@@ -20,6 +20,8 @@ from irreduc_utils import check_common
 # TODO: Incorporated check in answer to print that given polynomial cannot be proven irreducible by Eisenstein
 #  https://math.stackexchange.com/questions/791930/eisenstein-criterion-shift-conditions?noredirect=1&lq=1
 
+# TODO: Nice criterion by checking roots
+# https://mathoverflow.net/questions/214962/criteria-for-irreducibility-using-the-location-of-complex-roots
 
 if __name__ == '__main__':
     import sys

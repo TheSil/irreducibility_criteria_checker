@@ -21,7 +21,7 @@ class MurtyCriterion:
             if exp != f.degree():
                 h = max(h, abs(coeff / f.LC()))
 
-        nmin = math.ceil(h + 2)
+        nmin = int(math.ceil(h + 2))
         for n in range(nmin, nmin + 5):
             val = f.eval(n)
             if sympy.isprime(val):

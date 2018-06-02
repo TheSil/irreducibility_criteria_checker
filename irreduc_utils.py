@@ -3,11 +3,12 @@ import enum
 
 from irreduc_types import VAR_X, IRREDUCIBLE
 
-def check_common(f, fname, criterion):
+def check_common(f, fname, criterion, log=True):
     res = criterion.check(f)
     if res.result == IRREDUCIBLE:
-        print('Polynomial %s is irreducible by %s. (%s)'
-              % (fname, criterion.name, res.context))
+        if log:
+            print('Polynomial %s is irreducible by %s. (%s)'
+                  % (fname, criterion.name, res.context))
         return True
     return False
 

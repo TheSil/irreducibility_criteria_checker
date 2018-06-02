@@ -53,8 +53,9 @@ class GaloisFieldsCriterion:
             except sympy.polys.polyerrors.NotInvertible:
                 pass
 
+        res = {}
         if irreduc_primes:
-            return CheckResult(IRREDUCIBLE, {"p": irreduc_primes})
+            res["p"] = irreduc_primes
 
         # check if the degrees are compatible, first for degrees in Fp[x], we calculate by summing
         # all possible degrees of irreducible factors in Z[x]
@@ -73,7 +74,10 @@ class GaloisFieldsCriterion:
 
         if not inter:
             # intersection is empty, imcompatible factors!
-            return CheckResult(IRREDUCIBLE, {'degrees': sums})
+            res["degrees"] = sums
+
+        if res:
+            return CheckResult(IRREDUCIBLE, res)
 
         return CheckResult(UNKNOWN)
 
