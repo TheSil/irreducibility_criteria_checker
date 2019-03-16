@@ -66,6 +66,9 @@ class GaloisFieldsCriterion:
             if sums_p != trivial:
                 sums[p] = sums_p
 
+        if not sums:
+            return CheckResult(UNKNOWN)
+
         # then if intersection of these is empty or {deg(f)}, then lesser degree factor is impossible
         # thus polynomial will have to be irreducible
         inter = set.intersection(*list(sums.values()))

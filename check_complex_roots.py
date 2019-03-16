@@ -5,8 +5,9 @@ from irreduc_types import VAR_X, CheckResult, IRREDUCIBLE, REDUCIBLE, UNKNOWN
 
 
 class ComplexRootsCriterion:
-    def __init__(self):
+    def __init__(self, max_p=None):
         self.name = "Complex roots hunting"
+        self.max_p = max_p
 
     def name(self):
         return self.name
@@ -21,6 +22,9 @@ class ComplexRootsCriterion:
 
         # const coefficient needs to be prime
         if not sympy.isprime(abs(const_coeff)):
+            return CheckResult(UNKNOWN)
+
+        if (self.max_p and abs(const_coeff) >= self.max_p):
             return CheckResult(UNKNOWN)
 
         # need to be monic

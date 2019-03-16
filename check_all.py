@@ -51,20 +51,22 @@ if __name__ == '__main__':
                 subpoly_reverted = sympy.Poly(reversed(subpoly.all_coeffs()), VAR_X)
                 polys.append((subpoly_reverted, a, b, True))
 
+    max_p=100
+
     criteria = [
         EisensteinCriterion(),
-        CohnCriterion(),
+        CohnCriterion(max_p=max_p),
         PerronCriterion(),
         PerronNonSharpCriterion(),
         DumasCriterion(),
-        MurtyCriterion(),
+        MurtyCriterion(max_p=max_p),
         BrauerCriterion(),
-        OsadaCriterion(),
+        OsadaCriterion(max_p=max_p),
         PolyaCriterion(),
         SchurCriterion(),
         BonciocatCriterion(),
         GaloisFieldsCriterion(),
-        ComplexRootsCriterion(),
+        ComplexRootsCriterion(max_p=max_p),
     ]
 
     tryWithSubs = []

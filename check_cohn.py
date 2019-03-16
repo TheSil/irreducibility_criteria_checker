@@ -6,8 +6,9 @@ from irreduc_types import VAR_X, CheckResult, IRREDUCIBLE, REDUCIBLE, UNKNOWN
 
 
 class CohnCriterion:
-    def __init__(self):
+    def __init__(self, max_p=None):
         self.name = "Cohn's irreducibility criterion"
+        self.max_p = max_p
 
     def name(self):
         return self.name
@@ -23,7 +24,7 @@ class CohnCriterion:
         check_range = 30
         for base in range(max_coeff + 1, max_coeff + 1 + check_range):
             val = f.subs(VAR_X, base)
-            if sympy.isprime(val):
+            if sympy.isprime(val) and (not self.max_p or val < self.max_p):
                 return CheckResult(IRREDUCIBLE, {"base": base, "p": val})
 
         return CheckResult(UNKNOWN)

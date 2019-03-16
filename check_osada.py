@@ -6,8 +6,9 @@ from irreduc_types import CheckResult, IRREDUCIBLE, REDUCIBLE, UNKNOWN
 
 
 class OsadaCriterion:
-    def __init__(self):
+    def __init__(self, max_p=None):
         self.name = "Osada's irreducibility criterion"
+        self.max_p = max_p
 
     def name(self):
         return self.name
@@ -20,6 +21,9 @@ class OsadaCriterion:
 
         const_coeff = abs(f.TC())
         if not sympy.isprime(const_coeff):
+            return CheckResult(UNKNOWN)
+
+        if self.max_p and const_coeff >= self.max_p:
             return CheckResult(UNKNOWN)
 
         s = 0

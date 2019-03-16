@@ -7,8 +7,9 @@ from irreduc_types import CheckResult, IRREDUCIBLE, REDUCIBLE, UNKNOWN
 
 
 class MurtyCriterion:
-    def __init__(self):
+    def __init__(self, max_p=None):
         self.name = "Murty's irreducibility criterion"
+        self.max_p = max_p
 
     def name(self):
         return self.name
@@ -24,7 +25,7 @@ class MurtyCriterion:
         nmin = int(math.ceil(h + 2))
         for n in range(nmin, nmin + 5):
             val = f.eval(n)
-            if sympy.isprime(val):
+            if sympy.isprime(val) and (not self.max_p or val < self.max_p):
                 return CheckResult(IRREDUCIBLE, {'n': n, 'p': val})
         return CheckResult(UNKNOWN)
 
