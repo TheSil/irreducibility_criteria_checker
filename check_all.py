@@ -14,6 +14,8 @@ from check_schur import SchurCriterion
 from check_bonciocat import BonciocatCriterion
 from check_galois_fields import GaloisFieldsCriterion
 from check_complex_roots import ComplexRootsCriterion
+from check_complex_roots import ComplexRootsCriterion2
+from check_complex_roots import ComplexRootsCriterion3
 from irreduc_utils import check_common
 
 # TODO: find On the irreducibility of polynomials taking small values by Tverberg H., 1973, should have nice criteria
@@ -66,7 +68,9 @@ if __name__ == '__main__':
         SchurCriterion(),
         BonciocatCriterion(),
         GaloisFieldsCriterion(),
+        ComplexRootsCriterion2(),
         ComplexRootsCriterion(max_p=max_p),
+        ComplexRootsCriterion3(max_p=max_p),
     ]
 
     tryWithSubs = []
