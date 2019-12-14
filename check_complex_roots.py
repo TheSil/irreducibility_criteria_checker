@@ -150,11 +150,11 @@ class ComplexRootsCriterion3:
                 else:
                     outside_unit_circle += 1
 
-            if (inside_unit_circle == 0):
-                return CheckResult(IRREDUCIBLE, {"inside": inside_unit_circle,
-                                                 "outside/on": outside_unit_circle + on_unit_circle,
+            if (inside_unit_circle + on_unit_circle == 0):
+                return CheckResult(IRREDUCIBLE, {"inside/on": inside_unit_circle + on_unit_circle,
+                                                 "outside": outside_unit_circle,
                                                  "p": p})
-        except mpmath.libmp.libhyper.NoConvergence as e:
+        except Exception as e:
             # could not get complex roots, too bad
             pass
 
