@@ -15,6 +15,8 @@ class EisensteinCriterionV2:
         if const_coeff == 0:
             return CheckResult(REDUCIBLE)
         linear_coeff = get_coeff(f, 1)
+        if linear_coeff == 0:
+            return CheckResult(UNKNOWN)
         primes = sympy.ntheory.factorint(linear_coeff)
         for p in primes:
             power = primes[p]
