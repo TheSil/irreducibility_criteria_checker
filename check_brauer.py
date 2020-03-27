@@ -15,15 +15,16 @@ class BrauerCriterion:
         # Polynomials - Prasolov - Theorem 2.2.6 ([Br])
         last = 0
         lead_coeff = f.LC()
-        if lead_coeff != 1:
+        if abs(lead_coeff) != 1:
             return CheckResult(UNKNOWN)
         for exp, coeff in poly_all_exps(f):
             if exp != f.degree():
                 coeff = -coeff
+                coeff *= lead_coeff # in case the original differs by multiple of -1
                 if coeff < last or coeff <= 0:
                     return CheckResult(UNKNOWN)
                 last = coeff
-        return CheckResult(IRREDUCIBLE)
+        return CheckResult(IRREDUCIBLE, {"sign": lead_coeff})
 
 
 if __name__ == '__main__':
