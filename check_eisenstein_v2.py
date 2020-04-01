@@ -39,7 +39,7 @@ class EisensteinCriterionV2:
                 for num in numerators:
                     for denom in denominators:
                         for sign in (-1, 1):
-                            if f.eval(sympy.fraction(sign*num, denom)) == 0:
+                            if f.eval(sympy.Rational(sign*num, denom)) == 0:
                                 # rational root...
                                 return CheckResult(UNKNOWN)
 
