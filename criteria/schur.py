@@ -1,7 +1,7 @@
 import sys
 
 from irreduc_utils import create_polynomial, check_common, get_coeff
-from irreduc_types import CheckResult, IRREDUCIBLE, REDUCIBLE, UNKNOWN
+from irreduc_types import CheckResult, IRREDUCIBLE, UNKNOWN
 
 
 class SchurCriterion:

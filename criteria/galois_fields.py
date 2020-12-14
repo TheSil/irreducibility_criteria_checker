@@ -3,12 +3,13 @@ import sys
 from itertools import chain, combinations
 
 from irreduc_utils import create_polynomial, check_common
-from irreduc_types import CheckResult, IRREDUCIBLE, REDUCIBLE, UNKNOWN
+from irreduc_types import CheckResult, IRREDUCIBLE, UNKNOWN
 
 
 def powerset(iterable):
     s = list(iterable)
-    return chain.from_iterable(combinations(s, r) for r in range(len(s)+1))
+    return chain.from_iterable(combinations(s, r) for r in range(len(s) + 1))
+
 
 def subsets_sums(s):
     sums = set()
@@ -17,6 +18,7 @@ def subsets_sums(s):
         if d > 0:
             sums.add(d)
     return sums
+
 
 class GaloisFieldsCriterion:
     def __init__(self):
@@ -42,7 +44,7 @@ class GaloisFieldsCriterion:
                 for x in irreduc_factors[1]:
                     pol = x[0]
                     e = x[1]
-                    degrees += e*[(len(pol)-1)]
+                    degrees += e * [(len(pol) - 1)]
 
                 if len(degrees) == 1:
                     # irreducible by p...
@@ -60,7 +62,7 @@ class GaloisFieldsCriterion:
         # check if the degrees are compatible, first for degrees in Fp[x], we calculate by summing
         # all possible degrees of irreducible factors in Z[x]
         sums = {}
-        trivial = set(range(1, f.degree()+1))
+        trivial = set(range(1, f.degree() + 1))
         for p in irreduc_factors_degrees:
             sums_p = subsets_sums(irreduc_factors_degrees[p])
             if sums_p != trivial:

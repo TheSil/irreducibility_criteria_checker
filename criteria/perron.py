@@ -51,7 +51,7 @@ class PerronNonSharpCriterion:
             return CheckResult(IRREDUCIBLE)
         if a_nm1 >= s:
             f1 = f.subs(VAR_X, 1)
-            f2 = f.subs(VAR_X,-1)
+            f2 = f.subs(VAR_X, -1)
             if f1 != 0 and f2 != 0:
                 return CheckResult(IRREDUCIBLE)
         return CheckResult(UNKNOWN)

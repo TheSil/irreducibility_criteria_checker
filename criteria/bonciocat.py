@@ -2,7 +2,7 @@ import sympy
 import sys
 
 from irreduc_utils import create_polynomial, get_all_polygons, check_common
-from irreduc_types import CheckResult, IRREDUCIBLE, REDUCIBLE, UNKNOWN
+from irreduc_types import CheckResult, IRREDUCIBLE, UNKNOWN
 
 
 class BonciocatCriterion:

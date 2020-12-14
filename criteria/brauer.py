@@ -1,7 +1,7 @@
 import sys
 
 from irreduc_utils import create_polynomial, poly_all_exps, check_common
-from irreduc_types import CheckResult, IRREDUCIBLE, REDUCIBLE, UNKNOWN
+from irreduc_types import CheckResult, IRREDUCIBLE, UNKNOWN
 
 
 class BrauerCriterion:

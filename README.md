@@ -34,23 +34,37 @@ See Theorem 2.2.6 ([Br]) in book Polynomials by Prasolov.
 ## Bonciocat's irreducibility criterion
 See https://arxiv.org/pdf/1304.0874.pdf advanced use of newton polygons.
 
+# Dependencies
+
+Install required Python dependencies using:
+
+`
+python -m pip install -r requirements.txt
+`
+
 # Basic usage
 
-To run all currently supported criteria use
+To run specific criterion check, try for example:
+
+ `
+python criteria/eisenstein.py "x^3-2*x^2+2*x+2"
+`
+
+To run all currently supported criteria use:
 
 
 `
-check_all.py "P(x)"
+python check_all.py "P(x)"
 `
 
 where P(x) is some univariate polynomial from Z[x], e.g.
  
  `
-check_all.py "x^3-24*x^2-240*x-728"
+python check_all.py "x^3-24*x^2-240*x-728"
 `
 
-To run specific criterion check, try for example:
+This will also performs various substituions (e.g. shift f(x+c) or reciprocal polynomials.).
 
- `
-check_eisenstein.py "x^3-2*x^2+2*x+2"
-`
+
+
+

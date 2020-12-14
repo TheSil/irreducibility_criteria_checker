@@ -1,20 +1,20 @@
 import sympy
 from irreduc_types import VAR_X
 from irreduc_utils import sub_name
-from check_eisenstein import EisensteinCriterion
-from check_eisenstein_v2 import EisensteinCriterionV2
-from check_murty import MurtyCriterion
-from check_cohn import CohnCriterion
-from check_perron import PerronCriterion
-from check_perron import PerronNonSharpCriterion
-from check_dumas import DumasCriterion
-from check_brauer import BrauerCriterion
-from check_osada import OsadaCriterion, OsadaCriterionNonSharp
-from check_polya import PolyaCriterion
-from check_schur import SchurCriterion
-from check_bonciocat import BonciocatCriterion
-from check_galois_fields import GaloisFieldsCriterion
-from check_complex_roots import ComplexRootsCriterion, ComplexRootsCriterion2, ComplexRootsCriterion3
+from criteria.eisenstein import EisensteinCriterion
+from criteria.eisenstein_v2 import EisensteinCriterionV2
+from criteria.murty import MurtyCriterion
+from criteria.cohn import CohnCriterion
+from criteria.perron import PerronCriterion
+from criteria.perron import PerronNonSharpCriterion
+from criteria.dumas import DumasCriterion
+from criteria.brauer import BrauerCriterion
+from criteria.osada import OsadaCriterion, OsadaCriterionNonSharp
+from criteria.polya import PolyaCriterion
+from criteria.schur import SchurCriterion
+from criteria.bonciocat import BonciocatCriterion
+from criteria.galois_fields import GaloisFieldsCriterion
+from criteria.complex_roots import ComplexRootsCriterion, ComplexRootsCriterion2, ComplexRootsCriterion3
 from irreduc_utils import check_common
 
 # TODO: find On the irreducibility of polynomials taking small values by Tverberg H., 1973, should have nice criteria

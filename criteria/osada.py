@@ -2,7 +2,7 @@ import sympy
 import sys
 
 from irreduc_utils import create_polynomial, poly_non_zero_exps, check_common
-from irreduc_types import CheckResult, IRREDUCIBLE, REDUCIBLE, UNKNOWN
+from irreduc_types import CheckResult, IRREDUCIBLE, UNKNOWN
 
 
 class OsadaCriterion:
@@ -34,6 +34,7 @@ class OsadaCriterion:
         if const_coeff > 1 + s:
             return CheckResult(IRREDUCIBLE, {'s': const_coeff})
         return CheckResult(UNKNOWN)
+
 
 class OsadaCriterionNonSharp:
     def __init__(self, max_p=None):
@@ -81,10 +82,10 @@ class OsadaCriterionNonSharp:
                 else:
                     outside_unit_circle += 1
 
-            if (on_unit_circle == 0):
+            if on_unit_circle == 0:
                 return CheckResult(IRREDUCIBLE, {'s': const_coeff,
                                                  "on": on_unit_circle})
-        except mpmath.libmp.libhyper.NoConvergence as e:
+        except mpmath.libmp.libhyper.NoConvergence:
             # could not get complex roots, too bad
             pass
 
@@ -95,4 +96,3 @@ if __name__ == '__main__':
     poly = create_polynomial(sys.argv[1])
     check_common(poly, sys.argv[1], OsadaCriterion())
     check_common(poly, sys.argv[1], OsadaCriterionNonSharp())
-

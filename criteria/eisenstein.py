@@ -4,6 +4,7 @@ import sys
 from irreduc_utils import create_polynomial, poly_non_zero_exps, check_common
 from irreduc_types import CheckResult, IRREDUCIBLE, REDUCIBLE, UNKNOWN
 
+
 class EisensteinCriterion:
     def __init__(self):
         self.name = "Eisenstein's irreducibility criterion"

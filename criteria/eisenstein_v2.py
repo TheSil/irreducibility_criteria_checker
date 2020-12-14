@@ -4,6 +4,7 @@ import sys
 from irreduc_utils import create_polynomial, poly_non_zero_exps, check_common, get_coeff
 from irreduc_types import CheckResult, IRREDUCIBLE, REDUCIBLE, UNKNOWN
 
+
 class EisensteinCriterionV2:
     def __init__(self):
         self.name = "Modified Eisenstein's irreducibility criterion"
@@ -39,7 +40,7 @@ class EisensteinCriterionV2:
                 for num in numerators:
                     for denom in denominators:
                         for sign in (-1, 1):
-                            if f.eval(sympy.Rational(sign*num, denom)) == 0:
+                            if f.eval(sympy.Rational(sign * num, denom)) == 0:
                                 # rational root...
                                 return CheckResult(UNKNOWN)
 
