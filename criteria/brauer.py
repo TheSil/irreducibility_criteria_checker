@@ -1,7 +1,7 @@
 import sys
 
 from irreduc_utils import create_polynomial, poly_all_exps, check_common
-from irreduc_types import CheckResult, IRREDUCIBLE, UNKNOWN
+from irreduc_types import IRREDUCIBLE, UNKNOWN
 
 
 class BrauerCriterion:
@@ -16,15 +16,15 @@ class BrauerCriterion:
         last = 0
         lead_coeff = f.LC()
         if abs(lead_coeff) != 1:
-            return CheckResult(UNKNOWN)
+            return UNKNOWN, None
         for exp, coeff in poly_all_exps(f):
             if exp != f.degree():
                 coeff = -coeff
                 coeff *= lead_coeff # in case the original differs by multiple of -1
                 if coeff < last or coeff <= 0:
-                    return CheckResult(UNKNOWN)
+                    return UNKNOWN, None
                 last = coeff
-        return CheckResult(IRREDUCIBLE, {"sign": lead_coeff})
+        return IRREDUCIBLE, {"sign": lead_coeff}
 
 
 if __name__ == '__main__':

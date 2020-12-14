@@ -2,7 +2,7 @@ import sympy
 import sys
 
 from irreduc_utils import create_polynomial, check_common
-from irreduc_types import CheckResult, IRREDUCIBLE, REDUCIBLE, UNKNOWN
+from irreduc_types import IRREDUCIBLE, REDUCIBLE, UNKNOWN
 
 
 class PolyaCriterion:
@@ -22,12 +22,12 @@ class PolyaCriterion:
             val = abs(f.eval(a))
             if val == 0:
                 # clearly this is reducible...
-                return CheckResult(REDUCIBLE)
+                return REDUCIBLE, None
             if val < rhs:
                 suitable.append(a)
         if len(suitable) >= n:
-            return CheckResult(IRREDUCIBLE, {'a': suitable})
-        return CheckResult(UNKNOWN)
+            return IRREDUCIBLE, {'a': suitable}
+        return UNKNOWN, None
 
 
 if __name__ == '__main__':

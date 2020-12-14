@@ -1,7 +1,7 @@
 import sys
 
 from irreduc_utils import create_polynomial, poly_non_zero_exps, check_common, get_coeff
-from irreduc_types import VAR_X, CheckResult, IRREDUCIBLE, REDUCIBLE, UNKNOWN
+from irreduc_types import VAR_X, IRREDUCIBLE, REDUCIBLE, UNKNOWN
 
 
 class ComplexRootsCriterion:
@@ -18,19 +18,19 @@ class ComplexRootsCriterion:
 
         const_coeff = f.TC()
         if const_coeff == 0:
-            return CheckResult(REDUCIBLE)
+            return REDUCIBLE, None
 
         # const coefficient needs to be prime
         if not sympy.isprime(abs(const_coeff)):
-            return CheckResult(UNKNOWN)
+            return UNKNOWN, None
 
-        if (self.max_p and abs(const_coeff) >= self.max_p):
-            return CheckResult(UNKNOWN)
+        if self.max_p and abs(const_coeff) >= self.max_p:
+            return UNKNOWN, None
 
         # need to be monic
         lead_coeff = f.LC()
         if lead_coeff != 1:
-            return CheckResult(UNKNOWN)
+            return UNKNOWN, None
 
         # check if there are roots inside as well as outside of unit circle
         try:
@@ -48,14 +48,14 @@ class ComplexRootsCriterion:
                     outside_unit_circle += 1
 
             if (inside_unit_circle + on_unit_circle == 0) or (outside_unit_circle == 0):
-                return CheckResult(IRREDUCIBLE, {"inside/on": inside_unit_circle + on_unit_circle,
+                return IRREDUCIBLE, {"inside/on": inside_unit_circle + on_unit_circle,
                                                  "outside": outside_unit_circle,
-                                                 "p": const_coeff})
+                                                 "p": const_coeff}
         except mpmath.libmp.libhyper.NoConvergence as e:
             # could not get complex roots, too bad
             pass
 
-        return CheckResult(UNKNOWN)
+        return UNKNOWN, None
 
 
 class ComplexRootsCriterion2:
@@ -71,12 +71,12 @@ class ComplexRootsCriterion2:
 
         const_coeff = f.TC()
         if const_coeff == 0:
-            return CheckResult(REDUCIBLE)
+            return REDUCIBLE, None
 
         # need to be monic
         lead_coeff = f.LC()
         if lead_coeff != 1:
-            return CheckResult(UNKNOWN)
+            return UNKNOWN, None
 
         # check if there are roots inside as well as outside of unit circle
         try:
@@ -94,13 +94,13 @@ class ComplexRootsCriterion2:
                     outside_unit_circle += 1
 
             if (outside_unit_circle + on_unit_circle == 1):
-                return CheckResult(IRREDUCIBLE, {"inside": inside_unit_circle,
-                                                 "outside/on": outside_unit_circle + on_unit_circle})
+                return IRREDUCIBLE, {"inside": inside_unit_circle,
+                                                 "outside/on": outside_unit_circle + on_unit_circle}
         except mpmath.libmp.libhyper.NoConvergence as e:
             # could not get complex roots, too bad
             pass
 
-        return CheckResult(UNKNOWN)
+        return UNKNOWN, None
 
 class ComplexRootsCriterion3:
     def __init__(self, max_p=None):
@@ -117,12 +117,12 @@ class ComplexRootsCriterion3:
 
         const_coeff = f.TC()
         if const_coeff == 0:
-            return CheckResult(REDUCIBLE)
+            return REDUCIBLE, None
 
         # constant coeff needs to be in form +-p^d
         primes = sympy.ntheory.factorint(abs(const_coeff))
         if len(primes) != 1:
-            return CheckResult(UNKNOWN)
+            return UNKNOWN, None
 
         # extract p
         p = next(iter(primes.keys()))
@@ -130,10 +130,10 @@ class ComplexRootsCriterion3:
         # linear coefficients must not be divisible by p
         a1 = get_coeff(f, 1)
         if a1 % p == 0:
-            return CheckResult(UNKNOWN)
+            return UNKNOWN, None
 
-        if (self.max_p and abs(const_coeff) >= self.max_p):
-            return CheckResult(UNKNOWN)
+        if self.max_p and abs(const_coeff) >= self.max_p:
+            return UNKNOWN, None
 
         # check if there are roots inside as well as outside of unit circle
         try:
@@ -151,14 +151,14 @@ class ComplexRootsCriterion3:
                     outside_unit_circle += 1
 
             if (inside_unit_circle + on_unit_circle == 0):
-                return CheckResult(IRREDUCIBLE, {"inside/on": inside_unit_circle + on_unit_circle,
+                return IRREDUCIBLE, {"inside/on": inside_unit_circle + on_unit_circle,
                                                  "outside": outside_unit_circle,
-                                                 "p": p})
+                                                 "p": p}
         except Exception as e:
             # could not get complex roots, too bad
             pass
 
-        return CheckResult(UNKNOWN)
+        return UNKNOWN, None
 
 if __name__ == '__main__':
     poly = create_polynomial(sys.argv[1])

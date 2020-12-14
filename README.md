@@ -44,6 +44,12 @@ python -m pip install -r requirements.txt
 
 # Basic usage
 
+Run test suite:
+
+`
+python -m unittest discover"
+`
+
 To run specific criterion check, try for example:
 
  `

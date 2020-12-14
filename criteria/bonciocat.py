@@ -2,7 +2,7 @@ import sympy
 import sys
 
 from irreduc_utils import create_polynomial, get_all_polygons, check_common
-from irreduc_types import CheckResult, IRREDUCIBLE, UNKNOWN
+from irreduc_types import IRREDUCIBLE, UNKNOWN
 
 
 class BonciocatCriterion:
@@ -20,7 +20,7 @@ class BonciocatCriterion:
         # we need k>=2 of primes, but k==1 is okay as well
         k = len(polygons)
         if k < 1:
-            return CheckResult(UNKNOWN)
+            return UNKNOWN, None
 
         Sps = {}
 
@@ -70,16 +70,16 @@ class BonciocatCriterion:
                 Sps['S%i' % prime] = S
 
         if not Sps:
-            return CheckResult(UNKNOWN)
+            return UNKNOWN, None
 
         # final part, intersection...
         inter = set.intersection(*list(Sps.values()))
 
         if len(inter) > 0:
-            return CheckResult(UNKNOWN)
+            return UNKNOWN, None
 
         # we have succeeded!
-        return CheckResult(IRREDUCIBLE, Sps)
+        return IRREDUCIBLE, Sps
 
 
 if __name__ == '__main__':

@@ -1,7 +1,7 @@
 import sys
 
 from irreduc_utils import create_polynomial, check_common, get_coeff
-from irreduc_types import CheckResult, IRREDUCIBLE, UNKNOWN
+from irreduc_types import IRREDUCIBLE, UNKNOWN
 
 
 class SchurCriterion:
@@ -17,19 +17,19 @@ class SchurCriterion:
         n = f.degree()
         lead_coeff = f.LC()
         if abs(lead_coeff) != 1:
-            return CheckResult(UNKNOWN)
+            return UNKNOWN, None
         fact = n
         for exp in reversed(range(1, n)):
             coeff = get_coeff(f, exp)
             if coeff % fact != 0:
-                return CheckResult(UNKNOWN)
+                return UNKNOWN, None
             fact *= exp
         # fact now contains n!
         const_coeff = f.TC()
         if const_coeff != fact:
-            return CheckResult(UNKNOWN)
+            return UNKNOWN, None
 
-        return CheckResult(IRREDUCIBLE)
+        return IRREDUCIBLE, None
 
 
 if __name__ == '__main__':

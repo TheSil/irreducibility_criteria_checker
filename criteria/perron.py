@@ -1,7 +1,7 @@
 import sys
 
 from irreduc_utils import create_polynomial, poly_non_zero_exps, check_common, get_coeff
-from irreduc_types import VAR_X, CheckResult, IRREDUCIBLE, REDUCIBLE, UNKNOWN
+from irreduc_types import VAR_X, IRREDUCIBLE, REDUCIBLE, UNKNOWN
 
 
 class PerronCriterion:
@@ -14,18 +14,18 @@ class PerronCriterion:
     def check(self, f):
         const_coeff = f.TC()
         if const_coeff == 0:
-            return CheckResult(REDUCIBLE)
+            return REDUCIBLE, None
         lead_coeff = f.LC()
         if lead_coeff != 1:
-            return CheckResult(UNKNOWN)
+            return UNKNOWN, None
         a_nm1 = abs(get_coeff(f, f.degree() - 1))
         s = 1
         for exp, coeff in poly_non_zero_exps(f):
             if exp < f.degree() - 1:
                 s += abs(coeff)
         if a_nm1 > s:
-            return CheckResult(IRREDUCIBLE)
-        return CheckResult(UNKNOWN)
+            return IRREDUCIBLE, None
+        return UNKNOWN, None
 
 
 class PerronNonSharpCriterion:
@@ -38,23 +38,23 @@ class PerronNonSharpCriterion:
     def check(self, f):
         const_coeff = f.TC()
         if const_coeff == 0:
-            return CheckResult(REDUCIBLE)
+            return REDUCIBLE, None
         lead_coeff = f.LC()
         if lead_coeff != 1:
-            return CheckResult(UNKNOWN)
+            return UNKNOWN, None
         a_nm1 = abs(get_coeff(f, f.degree() - 1))
         s = 1
         for exp, coeff in poly_non_zero_exps(f):
             if exp < f.degree() - 1:
                 s += abs(coeff)
         if a_nm1 > s:
-            return CheckResult(IRREDUCIBLE)
+            return IRREDUCIBLE, None
         if a_nm1 >= s:
             f1 = f.subs(VAR_X, 1)
             f2 = f.subs(VAR_X, -1)
             if f1 != 0 and f2 != 0:
-                return CheckResult(IRREDUCIBLE)
-        return CheckResult(UNKNOWN)
+                return IRREDUCIBLE, None
+        return UNKNOWN, None
 
 
 if __name__ == '__main__':

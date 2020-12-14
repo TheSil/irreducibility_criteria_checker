@@ -3,7 +3,7 @@ import math
 import sys
 
 from irreduc_utils import create_polynomial, poly_non_zero_exps, check_common
-from irreduc_types import CheckResult, IRREDUCIBLE, UNKNOWN
+from irreduc_types import IRREDUCIBLE, UNKNOWN
 
 
 class MurtyCriterion:
@@ -26,8 +26,8 @@ class MurtyCriterion:
         for n in range(nmin, nmin + 5):
             val = f.eval(n)
             if sympy.isprime(val) and (not self.max_p or val < self.max_p):
-                return CheckResult(IRREDUCIBLE, {'n': n, 'p': val})
-        return CheckResult(UNKNOWN)
+                return IRREDUCIBLE, {'n': n, 'p': val}
+        return UNKNOWN, None
 
 
 if __name__ == '__main__':

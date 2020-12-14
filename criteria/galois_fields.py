@@ -3,7 +3,7 @@ import sys
 from itertools import chain, combinations
 
 from irreduc_utils import create_polynomial, check_common
-from irreduc_types import CheckResult, IRREDUCIBLE, UNKNOWN
+from irreduc_types import IRREDUCIBLE, UNKNOWN
 
 
 def powerset(iterable):
@@ -69,7 +69,7 @@ class GaloisFieldsCriterion:
                 sums[p] = sums_p
 
         if not sums:
-            return CheckResult(UNKNOWN)
+            return UNKNOWN, None
 
         # then if intersection of these is empty or {deg(f)}, then lesser degree factor is impossible
         # thus polynomial will have to be irreducible
@@ -82,9 +82,9 @@ class GaloisFieldsCriterion:
             res["degrees"] = sums
 
         if res:
-            return CheckResult(IRREDUCIBLE, res)
+            return IRREDUCIBLE, res
 
-        return CheckResult(UNKNOWN)
+        return UNKNOWN, None
 
 
 if __name__ == '__main__':

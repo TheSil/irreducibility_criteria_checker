@@ -2,7 +2,7 @@ import sympy
 import sys
 
 from irreduc_utils import create_polynomial, poly_non_zero_exps, check_common
-from irreduc_types import CheckResult, IRREDUCIBLE, UNKNOWN
+from irreduc_types import IRREDUCIBLE, UNKNOWN
 
 
 class OsadaCriterion:
@@ -17,14 +17,14 @@ class OsadaCriterion:
         # Polynomials - Prasolov - Theorem 2.2.7 ([Os1]) part a)
         lead_coeff = f.LC()
         if lead_coeff != 1:
-            return CheckResult(UNKNOWN)
+            return UNKNOWN, None
 
         const_coeff = abs(f.TC())
         if not sympy.isprime(const_coeff):
-            return CheckResult(UNKNOWN)
+            return UNKNOWN, None
 
         if self.max_p and const_coeff >= self.max_p:
-            return CheckResult(UNKNOWN)
+            return UNKNOWN, None
 
         s = 0
         for exp, coeff in poly_non_zero_exps(f):
@@ -32,8 +32,8 @@ class OsadaCriterion:
                 s += abs(coeff)
 
         if const_coeff > 1 + s:
-            return CheckResult(IRREDUCIBLE, {'s': const_coeff})
-        return CheckResult(UNKNOWN)
+            return IRREDUCIBLE, {'s': const_coeff}
+        return UNKNOWN, None
 
 
 class OsadaCriterionNonSharp:
@@ -48,14 +48,14 @@ class OsadaCriterionNonSharp:
         # Polynomials - Prasolov - Theorem 2.2.7 ([Os1]) part b)
         lead_coeff = f.LC()
         if lead_coeff != 1:
-            return CheckResult(UNKNOWN)
+            return UNKNOWN, None
 
         const_coeff = abs(f.TC())
         if not sympy.isprime(const_coeff):
-            return CheckResult(UNKNOWN)
+            return UNKNOWN, None
 
         if self.max_p and const_coeff >= self.max_p:
-            return CheckResult(UNKNOWN)
+            return UNKNOWN, None
 
         s = 0
         for exp, coeff in poly_non_zero_exps(f):
@@ -63,7 +63,7 @@ class OsadaCriterionNonSharp:
                 s += abs(coeff)
 
         if const_coeff < 1 + s:
-            return CheckResult(UNKNOWN)
+            return UNKNOWN, None
 
         import mpmath
 
@@ -83,13 +83,13 @@ class OsadaCriterionNonSharp:
                     outside_unit_circle += 1
 
             if on_unit_circle == 0:
-                return CheckResult(IRREDUCIBLE, {'s': const_coeff,
-                                                 "on": on_unit_circle})
+                return IRREDUCIBLE, {'s': const_coeff,
+                                                 "on": on_unit_circle}
         except mpmath.libmp.libhyper.NoConvergence:
             # could not get complex roots, too bad
             pass
 
-        return CheckResult(UNKNOWN)
+        return UNKNOWN, None
 
 
 if __name__ == '__main__':
