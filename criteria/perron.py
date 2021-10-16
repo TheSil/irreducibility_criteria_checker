@@ -47,9 +47,7 @@ class PerronNonSharpCriterion:
         for exp, coeff in poly_non_zero_exps(f):
             if exp < f.degree() - 1:
                 s += abs(coeff)
-        if a_nm1 > s:
-            return IRREDUCIBLE, None
-        if a_nm1 >= s:
+        if a_nm1 == s:
             f1 = f.subs(VAR_X, 1)
             f2 = f.subs(VAR_X, -1)
             if f1 != 0 and f2 != 0:

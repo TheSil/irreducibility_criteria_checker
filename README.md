@@ -25,6 +25,9 @@ https://en.wikipedia.org/wiki/Perron%27s_irreducibility_criterion
 ## Polya's irreducibility criterion
 See Theorem 2.2.8 (Polya) in book Polynomials by Prasolov. 
 
+## Levit's irreducibility criterion
+See Theorem 2 in Irreducibility of Polynomials with Low Absolute Values by R. J. Levit. 
+
 ## Schur's irreducibility criterion
 See Schur's theorem for example in http://www.math.uconn.edu/~kconrad/blurbs/gradnumthy/schurtheorem.pdf.
 

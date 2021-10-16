@@ -15,6 +15,7 @@ from criteria.schur import SchurCriterion
 from criteria.bonciocat import BonciocatCriterion
 from criteria.galois_fields import GaloisFieldsCriterion
 from criteria.complex_roots import ComplexRootsCriterion, ComplexRootsCriterion2, ComplexRootsCriterion3
+from criteria.levit import LevitCriterion
 from irreduc_utils import check_common
 
 # TODO: find On the irreducibility of polynomials taking small values by Tverberg H., 1973, should have nice criteria
@@ -44,7 +45,9 @@ if __name__ == '__main__':
                 if a == 0 or (a == 1 and b == 0):
                     continue
 
-                subpoly = poly.subs(VAR_X, a * VAR_X + b).simplify()
+                expr = poly.subs(VAR_X, a * VAR_X + b).simplify().as_expr()
+                subpoly = sympy.Poly(expr, VAR_X)
+
                 polys.append((subpoly, a, b, False))
 
                 if subpoly.TC() != 0:
@@ -65,6 +68,7 @@ if __name__ == '__main__':
         OsadaCriterion(max_p=max_p),
         OsadaCriterionNonSharp(max_p=max_p),
         PolyaCriterion(),
+        LevitCriterion(),
         SchurCriterion(),
         BonciocatCriterion(),
         GaloisFieldsCriterion(),
