@@ -34,7 +34,9 @@ class ComplexRootsCriterion:
 
         # check if there are roots inside as well as outside of unit circle
         try:
-            all = mpmath.polyroots(f.all_coeffs(), maxsteps=100)
+            coeffs = [int(x) for x in
+                      f.all_coeffs()]  # converting to Python native ints, otherwise polyroots gets stuck
+            all = mpmath.polyroots(coeffs, maxsteps=100)
             inside_unit_circle = 0
             outside_unit_circle = 0
             on_unit_circle = 0
@@ -80,7 +82,9 @@ class ComplexRootsCriterion2:
 
         # check if there are roots inside as well as outside of unit circle
         try:
-            all = mpmath.polyroots(f.all_coeffs(), maxsteps=100)
+            coeffs = [int(x) for x in
+                      f.all_coeffs()]  # converting to Python native ints, otherwise polyroots gets stuck
+            all = mpmath.polyroots(coeffs, maxsteps=100)
             inside_unit_circle = 0
             outside_unit_circle = 0
             on_unit_circle = 0
@@ -137,7 +141,9 @@ class ComplexRootsCriterion3:
 
         # check if there are roots inside as well as outside of unit circle
         try:
-            all = mpmath.polyroots(f.all_coeffs(), maxsteps=100)
+            coeffs = [int(x) for x in
+                      f.all_coeffs()]  # converting to Python native ints, otherwise polyroots gets stuck
+            all = mpmath.polyroots(coeffs, maxsteps=100)
             inside_unit_circle = 0
             outside_unit_circle = 0
             on_unit_circle = 0
