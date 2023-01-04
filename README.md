@@ -37,6 +37,9 @@ See Theorem 2.2.6 ([Br]) in book Polynomials by Prasolov.
 ## Bonciocat's irreducibility criterion
 See https://arxiv.org/pdf/1304.0874.pdf advanced use of newton polygons.
 
+## Filaseta's criteria
+See https://doi.org/10.1016/j.jnt.2013.11.001 and https://oeis.org/A253280 for generalization of Cohn's irreducibility criterion
+
 # Dependencies
 
 Install required Python dependencies using:

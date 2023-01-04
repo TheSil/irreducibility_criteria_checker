@@ -15,6 +15,7 @@ from criteria.schur import SchurCriterion
 from criteria.bonciocat import BonciocatCriterion
 from criteria.galois_fields import GaloisFieldsCriterion
 from criteria.complex_roots import ComplexRootsCriterion, ComplexRootsCriterion2, ComplexRootsCriterion3
+from criteria.filaseta import FilasetaDegree31Criterion, FilasetaBoundedCoeffsCriterion
 from criteria.levit import LevitCriterion
 from irreduc_utils import check_common
 
@@ -54,7 +55,7 @@ if __name__ == '__main__':
                     subpoly_reverted = sympy.Poly(reversed(subpoly.all_coeffs()), VAR_X)
                     polys.append((subpoly_reverted, a, b, True))
 
-    max_p=100
+    max_p=1000
 
     criteria = [
         EisensteinCriterion(),
@@ -75,6 +76,8 @@ if __name__ == '__main__':
         ComplexRootsCriterion2(),
         ComplexRootsCriterion(max_p=max_p),
         ComplexRootsCriterion3(max_p=max_p),
+        FilasetaDegree31Criterion(),
+        FilasetaBoundedCoeffsCriterion()
     ]
 
     tryWithSubs = []
