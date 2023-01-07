@@ -5,39 +5,52 @@ from irreduc_utils import create_polynomial, poly_non_zero_exps, check_common
 from irreduc_types import VAR_X, IRREDUCIBLE, REDUCIBLE, UNKNOWN
 
 
-class FilasetaDegree31Criterion:
+class FilasetaBoundDegreeCriterion:
     def __init__(self):
-        self.name = "Filaseta's irreducibility criterion for degree <= 31"
+        self.name = "Filaseta's irreducibility criterion for bound degree"
 
     def name(self):
         return self.name
 
     def check(self, f):
         # https://doi.org/10.1016/j.jnt.2013.11.001
-        # If the polynomial has non-negative coefficients, deg f <= 31 and f(10) is a prime
+        # If the polynomial has non-negative coefficients, deg f <= A(b) and f(b) is a prime
         # then f is irreducible
+        # the above article proves the result for b=10 and A(10) = 31. Cole in
+        # https://scholarcommons.sc.edu/etd/1590/ provides similar bounds for 8<=b<=20
+
+        A = {
+            8: 25,
+            9: 28,
+            10: 31,
+            11: 34,
+            12: 37,
+            13: 40,
+            14: 43,
+            15: 47,
+            16: 50,
+            17: 53,
+            18: 56,
+            19: 59,
+            20: 62
+        }
 
         # first we need to ensure coefficients are non-negative
-        max_coeff = 0
         for _, coeff in poly_non_zero_exps(f):
             if coeff < 0:
                 return UNKNOWN, None
 
-        # f(10) must be prime
-        val = f.subs(VAR_X, 10)
-        if not sympy.isprime(val):
-            return UNKNOWN, None
+        for b, B in A.items():
+            val = f.subs(VAR_X, b)
+            if sympy.isprime(val) and f.degree() <= B:
+                return IRREDUCIBLE, {"base": b, "p": val, "B": B}
 
-        # deg f <= 31
-        if f.degree() > 31:
-            return UNKNOWN, None
-
-        return IRREDUCIBLE, {"p": val}
+        return UNKNOWN, None
 
 
-class FilasetaBoundedCoeffsCriterion:
+class FilasetaBoundCoeffsCriterion:
     def __init__(self):
-        self.name = "Filaseta's irreducibility criterion for bounded coefficients"
+        self.name = "Filaseta's irreducibility criterion for bound coefficients"
 
     def name(self):
         return self.name
@@ -66,10 +79,10 @@ class FilasetaBoundedCoeffsCriterion:
             17: 1268514052720791756582944613802085175096200858994963359873275789312,
             18: 210075378544004872190325829606836051632192371202216081668284609637499040,
             19: 38625368655808052927694359301620272576822252200247254369696128549408630374400,
-            20: 7965097815841643900684276577174036821605756035173863133380627982979718588470528880}
+            20: 7965097815841643900684276577174036821605756035173863133380627982979718588470528880
+        }
 
         # first we need to ensure coefficients are within bounds
-        max_coeff = 0
         for _, coeff in poly_non_zero_exps(f):
             if coeff < 0 or coeff > 49598666989151226098104244512918:
                 return UNKNOWN, None
@@ -92,5 +105,5 @@ class FilasetaBoundedCoeffsCriterion:
 
 if __name__ == '__main__':
     poly = create_polynomial(sys.argv[1])
-    check_common(poly, sys.argv[1], FilasetaDegree31Criterion())
-    check_common(poly, sys.argv[1], FilasetaBoundedCoeffsCriterion())
+    check_common(poly, sys.argv[1], FilasetaBoundDegreeCriterion())
+    check_common(poly, sys.argv[1], FilasetaBoundCoeffsCriterion())

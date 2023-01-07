@@ -38,7 +38,7 @@ See Theorem 2.2.6 ([Br]) in book Polynomials by Prasolov.
 See https://arxiv.org/pdf/1304.0874.pdf advanced use of newton polygons.
 
 ## Filaseta's criteria
-See https://doi.org/10.1016/j.jnt.2013.11.001 and https://oeis.org/A253280 for generalization of Cohn's irreducibility criterion
+See https://doi.org/10.1016/j.jnt.2013.11.001 and https://oeis.org/A253280 for generalization of Cohn's irreducibility criterion. Values beyond base 10 are taken from works of Cole (https://scholarcommons.sc.edu/etd/1590/) and Dunn (https://scholarcommons.sc.edu/etd/2809/).  
 
 # Dependencies
 
