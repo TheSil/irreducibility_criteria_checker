@@ -48,6 +48,7 @@ class FilasetaBoundedCoeffsCriterion:
         # If the polynomial has non-negative coefficients which are at most A253280(n)
         # and f(n) is a prime, then f is irreducible
         A253280 = {
+            2: 7,  # not a maximal bound but proven one, might be replaced with 8 or 9 in the future
             3: 3795,
             4: 8925840,
             5: 56446139763,
