@@ -3,6 +3,7 @@ from irreduc_types import VAR_X
 from irreduc_utils import sub_name
 from criteria.eisenstein import EisensteinCriterion
 from criteria.eisenstein_v2 import EisensteinCriterionV2
+from criteria.eisenstein_v3 import EisensteinCriterionV3
 from criteria.murty import MurtyCriterion
 from criteria.cohn import CohnCriterion
 from criteria.perron import PerronCriterion
@@ -12,7 +13,7 @@ from criteria.brauer import BrauerCriterion
 from criteria.osada import OsadaCriterion, OsadaCriterionNonSharp
 from criteria.polya import PolyaCriterion
 from criteria.schur import SchurCriterion
-from criteria.bonciocat import BonciocatCriterion
+from criteria.bonciocat import BonciocatCriterion, BonciocatPrimeCriterion
 from criteria.galois_fields import GaloisFieldsCriterion
 from criteria.complex_roots import ComplexRootsCriterion, ComplexRootsCriterion2, ComplexRootsCriterion3
 from criteria.filaseta import FilasetaBoundDegreeCriterion, FilasetaBoundCoeffsCriterion
@@ -55,11 +56,12 @@ if __name__ == '__main__':
                     subpoly_reverted = sympy.Poly(reversed(subpoly.all_coeffs()), VAR_X)
                     polys.append((subpoly_reverted, a, b, True))
 
-    max_p=1000
+    max_p=10000
 
     criteria = [
         EisensteinCriterion(),
         EisensteinCriterionV2(),
+        EisensteinCriterionV3(),
         CohnCriterion(max_p=max_p),
         PerronCriterion(),
         PerronNonSharpCriterion(),
@@ -72,6 +74,7 @@ if __name__ == '__main__':
         LevitCriterion(),
         SchurCriterion(),
         BonciocatCriterion(),
+        BonciocatPrimeCriterion(),
         GaloisFieldsCriterion(),
         ComplexRootsCriterion2(),
         ComplexRootsCriterion(max_p=max_p),

@@ -1,8 +1,8 @@
 import sympy
 import sys
 
-from irreduc_utils import create_polynomial, get_all_polygons, check_common
-from irreduc_types import IRREDUCIBLE, UNKNOWN
+from irreduc_utils import create_polynomial, get_all_polygons, check_common, poly_non_zero_exps
+from irreduc_types import VAR_X, IRREDUCIBLE, UNKNOWN
 
 
 class BonciocatCriterion:
@@ -80,6 +80,40 @@ class BonciocatCriterion:
 
         # we have succeeded!
         return IRREDUCIBLE, Sps
+
+
+class BonciocatPrimeCriterion:
+    def __init__(self):
+        self.name = "Bonciocat's prime at large enough input criterion"
+
+    def name(self):
+        return self.name
+
+    def check(self, f):
+        # https://www.tandfonline.com/doi/epdf/10.1080/00927872.2021.2014514?needAccess=true&role=button
+        # f non-negative integer coefficients and deg f >= 2
+        # If f(m) is prime for m > (deg f)/3 + 1, then f is irreducible
+        # in fact m > 1/ sin(pi/n), so we have a weaker version where
+
+        # ensure coefficients are non-negative
+        for _, coeff in poly_non_zero_exps(f):
+            if coeff < 0:
+                return UNKNOWN, None
+
+        # deg f >= 2
+        if f.degree() < 2:
+            return UNKNOWN, None
+
+        m = f.degree() // 3 + 2
+        max_m = m + 100
+        max_p = 1000000
+        val = f.subs(VAR_X, m)
+        while m <= max_m and val <= max_p:
+            if sympy.isprime(val):
+                return IRREDUCIBLE, {"m": m, "p": val}
+            m += 1
+
+        return UNKNOWN, None
 
 
 if __name__ == '__main__':

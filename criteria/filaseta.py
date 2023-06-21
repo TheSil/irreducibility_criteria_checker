@@ -17,16 +17,22 @@ class FilasetaBoundDegreeCriterion:
         # If the polynomial has non-negative coefficients, deg f <= A(b) and f(b) is a prime
         # then f is irreducible
         # the above article proves the result for b=10 and A(10) = 31. Cole in
-        # https://scholarcommons.sc.edu/etd/1590/ provides similar bounds for 8<=b<=20
+        # https://scholarcommons.sc.edu/etd/2809/ Theorem 2.7 provides similar bounds for 2<=b<=20
 
         A = {
+            2: 6,
+            3: 9,
+            4: 12,
+            5: 15,
+            6: 19,
+            7: 22,
             8: 25,
             9: 28,
             10: 31,
             11: 34,
             12: 37,
             13: 40,
-            14: 43,
+            14: 44,
             15: 47,
             16: 50,
             17: 53,
