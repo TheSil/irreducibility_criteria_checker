@@ -10,8 +10,8 @@ https://en.wikipedia.org/wiki/Cohn%27s_irreducibility_criterion
 ## Dumas' criterion for Newton polygons
 See section Dumas's criterion in book Polynomials by Prasolov. 
 
-## Checking irreducibility in finite field Fp
-Algorithmic approach is used to decompose the polynomial into irreducible factors in finite fields Fp for small primes p. If the polynomial is irreducible in any of them, or if degrees of irreducible factors are not compatible, irreducibility over integers is implied.
+## Checking irreducibility in finite field $F_p$
+Algorithmic approach is used to decompose the polynomial into irreducible factors in finite fields $F_p$ for small primes $p$. If the polynomial is irreducible in any of them, or if degrees of irreducible factors are not compatible, irreducibility over integers is implied.
 
 ## Murty's irreducibility criterion
 See Theorem 1 in http://cms.dm.uba.ar/academico/materias/2docuat2011/teoria_de_numeros/Irreducible.pdf.
@@ -69,13 +69,13 @@ To run all currently supported criteria use:
 python check_all.py "P(x)"
 `
 
-where P(x) is some univariate polynomial from Z[x], e.g.
+where $P(x)$ is some univariate polynomial from $Z[x]$, e.g.
  
  `
 python check_all.py "x^3-24*x^2-240*x-728"
 `
 
-This will also performs various substituions (e.g. shift f(x+c) or reciprocal polynomials.).
+This will also performs various substitutions (e.g. shift $f(x+c)$ or reciprocal polynomials.).
 
 
 
